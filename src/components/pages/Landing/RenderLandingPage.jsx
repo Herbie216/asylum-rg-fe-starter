@@ -10,7 +10,7 @@ import { useHistory } from 'react-router-dom';
 // for the purposes of testing PageNav
 import PageNav from '../../common/PageNav';    // ***find a use for this!!!***
 
-function RenderLandingPage(props) {
+function RenderLandingPage({ isAuthenticated }) {  // changed the props to use auth0 
   const scrollToTop = () => {
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
@@ -48,20 +48,25 @@ function RenderLandingPage(props) {
         </div>
       </div>
       <div className="view-more-data-btn-container">
-        <Button
-          type="default"
-          style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-          onClick={() => history.push('/graphs')}
-        >
-          View the Data
-        </Button>
-        <Button
-          type="default"
-          style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
-          onClick={() => history.push('/graphs')}
-        >
-          Download the Data
-        </Button>
+        {/* added logic to show and hide buttons depending on authentication */}
+        {isAuthenticated && (
+          <>
+            <Button
+              type="default"
+              style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+              onClick={() => history.push('/graphs')}
+            >
+              View the Data
+            </Button>
+            <Button
+              type="default"
+              style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
+              onClick={() => history.push('/graphs')}
+            >
+              Download the Data
+            </Button>
+          </>
+        )}
       </div>
 
       <div className="middle-section">
@@ -97,6 +102,8 @@ function RenderLandingPage(props) {
           </div>
         </div>
         <div className="view-more-data-btn-container">
+        {/* added logic to show and hide buttons depending on authentication */}
+        {isAuthenticated && (
           <Button
             type="default"
             style={{ backgroundColor: '#404C4A', color: '#FFFFFF' }}
@@ -104,6 +111,7 @@ function RenderLandingPage(props) {
           >
             Download the Data
           </Button>
+        )}
         </div>
         <p onClick={() => scrollToTop()} className="back-to-top">
           Back To Top ^
